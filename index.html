@@ -9,8 +9,9 @@
 :root{
   --white:#FFFFFF;--off-white:#F5F5F7;--gray-light:#F9F9FB;
   --black:#000000;--gray:#6E6E73;--gray-dark:#1D1D1D;
-  --blue:#0066CC;--blue-light:#F0F4FF;
-  --border:#E5E5EA;
+  --blue:#0066CC;--blue-light:#F0F4FF;--blue-dark:#0052A3;
+  --border:#E5E5EA;--shadow-sm:0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:0 8px 24px rgba(0,0,0,0.12);--shadow-lg:0 20px 40px rgba(0,0,0,0.15);
 }
 html{scroll-behavior:smooth;}
 body{
@@ -19,14 +20,6 @@ body{
   color:var(--black);
   line-height:1.6;
   overflow-x:hidden;
-}
-/* Smooth scroll animations */
-@supports (animation-timeline: view()) {
-  .reveal-scroll {
-    animation: fadeInUp linear;
-    animation-timeline: view();
-    animation-range: entry 0% cover 30%;
-  }
 }
 @keyframes fadeInUp {
   from {
@@ -48,6 +41,31 @@ body{
     transform: scale(1);
   }
 }
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 nav {
   position: fixed;
   top: 0;
@@ -59,14 +77,15 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
 nav.scrolled {
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: var(--shadow-sm);
 }
 .nav-logo {
   display: flex;
@@ -76,6 +95,10 @@ nav.scrolled {
   font-size: 16px;
   font-weight: 600;
   color: var(--black);
+  transition: transform 0.3s;
+}
+.nav-logo:hover {
+  transform: scale(1.02);
 }
 .logo-circle {
   width: 32px;
@@ -86,6 +109,7 @@ nav.scrolled {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
 }
 .logo-circle svg {
   width: 18px;
@@ -101,9 +125,23 @@ nav.scrolled {
   color: var(--gray);
   text-decoration: none;
   transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--blue);
+  transition: width 0.3s;
 }
 .nav-links a:hover {
   color: var(--black);
+}
+.nav-links a:hover::after {
+  width: 100%;
 }
 .nav-actions {
   display: flex;
@@ -118,6 +156,7 @@ nav.scrolled {
   transition: all 0.2s;
   border: none;
   cursor: pointer;
+  font-weight: 500;
 }
 .btn-nav-outline {
   border: 1px solid var(--border);
@@ -126,13 +165,17 @@ nav.scrolled {
 }
 .btn-nav-outline:hover {
   background: var(--off-white);
+  border-color: var(--blue);
 }
 .btn-nav-solid {
   background: var(--blue);
   color: white;
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
 }
 .btn-nav-solid:hover {
-  background: #0052A3;
+  background: var(--blue-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4);
 }
 @media(max-width: 768px) {
   nav {
@@ -142,21 +185,55 @@ nav.scrolled {
     display: none;
   }
 }
-/* Hero Section */
+/* Hero Section with Parallax */
 .hero {
-  padding: 120px 40px 80px;
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  background: var(--white);
+  overflow: hidden;
   margin-top: 48px;
-  animation: fadeInUp 0.8s ease;
+}
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #F5F5F7 0%, #FFFFFF 100%);
+  z-index: -2;
+}
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('images/hero.jpg') center/cover;
+  opacity: 0.15;
+  z-index: -1;
+  transform: translateZ(0);
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: 40px;
+  animation: fadeInUp 0.8s ease 0.2s both;
 }
 .hero h1 {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-size: clamp(2.5rem, 8vw, 5rem);
   font-weight: 700;
   line-height: 1.1;
   color: var(--black);
   margin-bottom: 20px;
   letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--black) 0%, var(--blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 .hero p {
   font-size: 18px;
@@ -164,66 +241,100 @@ nav.scrolled {
   max-width: 600px;
   margin: 0 auto 40px;
   line-height: 1.7;
+  animation: fadeInUp 0.8s ease 0.4s both;
 }
 .hero-btns {
   display: flex;
   gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease 0.6s both;
 }
 .btn-primary {
-  background: var(--blue);
+  background: linear-gradient(135deg, var(--blue), #0099FF);
   color: white;
-  padding: 12px 28px;
+  padding: 14px 32px;
   border-radius: 24px;
   text-decoration: none;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   border: none;
   cursor: pointer;
   transition: all 0.3s;
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  box-shadow: 0 8px 24px rgba(0, 102, 204, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.3s;
 }
 .btn-primary:hover {
-  background: #0052A3;
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 102, 204, 0.4);
+}
+.btn-primary:hover::before {
+  left: 100%;
 }
 .btn-secondary {
-  background: var(--off-white);
+  background: rgba(255, 255, 255, 0.8);
   color: var(--blue);
-  padding: 12px 28px;
+  padding: 14px 32px;
   border-radius: 24px;
   text-decoration: none;
   font-size: 15px;
-  font-weight: 500;
-  border: none;
+  font-weight: 600;
+  border: 1px solid rgba(0, 102, 204, 0.2);
   cursor: pointer;
   transition: all 0.3s;
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  backdrop-filter: blur(10px);
 }
 .btn-secondary:hover {
-  background: #E8E8ED;
+  background: var(--white);
+  border-color: var(--blue);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 102, 204, 0.2);
 }
 /* Stats Section */
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 40px;
-  padding: 60px 40px;
-  background: var(--off-white);
+  padding: 80px 40px;
+  background: linear-gradient(180deg, #F5F5F7 0%, #FFFFFF 100%);
   text-align: center;
+  position: relative;
 }
 .stat-item {
   animation: scaleIn 0.6s ease;
+  padding: 20px;
+  border-radius: 16px;
+  transition: all 0.3s;
+}
+.stat-item:hover {
+  background: var(--white);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
 }
 .stat-num {
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--blue);
+  background: linear-gradient(135deg, var(--blue), #0099FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 8px;
 }
 .stat-label {
@@ -231,19 +342,20 @@ nav.scrolled {
   color: var(--gray);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-weight: 500;
 }
-/* Services Section (Bento Grid) */
+/* Services Section (Premium Bento) */
 .services {
-  padding: 100px 40px;
+  padding: 120px 40px;
   background: var(--white);
 }
 .section-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
   animation: fadeInUp 0.8s ease;
 }
 .section-header h2 {
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
   color: var(--black);
   margin-bottom: 12px;
@@ -258,7 +370,7 @@ nav.scrolled {
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  gap: 24px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -269,66 +381,94 @@ nav.scrolled {
   transition: all 0.3s ease;
   animation: fadeInUp 0.8s ease;
   border: 1px solid rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue), #0099FF);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+.service-card:hover::before {
+  transform: scaleX(1);
 }
 .service-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-lg);
   background: var(--white);
 }
 .service-icon {
-  width: 48px;
-  height: 48px;
-  background: var(--blue-light);
-  border-radius: 12px;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--blue-light), rgba(0, 102, 204, 0.1));
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   transition: all 0.3s;
 }
 .service-card:hover .service-icon {
-  transform: scale(1.1);
+  transform: scale(1.15) rotate(-5deg);
+  background: linear-gradient(135deg, var(--blue), #0099FF);
 }
 .service-icon svg {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   color: var(--blue);
+  transition: color 0.3s;
+}
+.service-card:hover .service-icon svg {
+  color: white;
 }
 .service-card h3 {
   font-size: 18px;
   font-weight: 600;
   color: var(--black);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 .service-card p {
   font-size: 14px;
   color: var(--gray);
   line-height: 1.6;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 .service-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 .service-list li {
   font-size: 13px;
   color: var(--gray);
-  padding-left: 20px;
+  padding-left: 24px;
   position: relative;
+  transition: color 0.2s;
 }
 .service-list li::before {
   content: '✓';
   position: absolute;
   left: 0;
   color: var(--blue);
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 14px;
 }
-/* Philosophy Section */
+.service-card:hover .service-list li {
+  color: var(--black);
+}
+/* Philosophy Section with Image */
 .philosophy {
-  padding: 100px 40px;
-  background: var(--off-white);
+  padding: 120px 40px;
+  background: linear-gradient(180deg, #F5F5F7 0%, #FFFFFF 100%);
+  position: relative;
 }
 .philosophy-grid {
   display: grid;
@@ -337,6 +477,25 @@ nav.scrolled {
   max-width: 1200px;
   margin: 0 auto;
   align-items: center;
+}
+.philosophy-image {
+  position: relative;
+  height: 500px;
+  border-radius: 28px;
+  overflow: hidden;
+  animation: slideInRight 0.8s ease;
+}
+.philosophy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.philosophy-image:hover img {
+  transform: scale(1.05);
+}
+.philosophy-text {
+  animation: slideInLeft 0.8s ease;
 }
 .philosophy-text h3 {
   font-size: 2rem;
@@ -355,6 +514,7 @@ nav.scrolled {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin-top: 40px;
 }
 .pillar {
   background: var(--white);
@@ -363,10 +523,28 @@ nav.scrolled {
   border: 1px solid rgba(0, 0, 0, 0.06);
   transition: all 0.3s;
   animation: fadeInUp 0.8s ease;
+  position: relative;
+  overflow: hidden;
+}
+.pillar::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--blue), #0099FF);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s;
+}
+.pillar:hover::before {
+  transform: scaleY(1);
 }
 .pillar:hover {
   border-color: var(--blue);
-  box-shadow: 0 8px 24px rgba(0, 102, 204, 0.1);
+  box-shadow: var(--shadow-md);
+  transform: translateX(4px);
 }
 .pillar h4 {
   font-size: 15px;
@@ -381,7 +559,7 @@ nav.scrolled {
 }
 /* FAQ Section */
 .faq {
-  padding: 100px 40px;
+  padding: 120px 40px;
   background: var(--white);
 }
 .faq-list {
@@ -395,9 +573,16 @@ nav.scrolled {
   border-bottom: 1px solid var(--border);
   padding: 24px 0;
   animation: fadeInUp 0.8s ease;
+  transition: all 0.3s;
 }
 .faq-item:last-child {
   border-bottom: none;
+}
+.faq-item:hover {
+  padding: 24px 16px;
+  margin: 0 -16px;
+  background: var(--off-white);
+  border-radius: 12px;
 }
 .faq-header {
   display: flex;
@@ -410,6 +595,10 @@ nav.scrolled {
   font-size: 16px;
   font-weight: 600;
   color: var(--black);
+  transition: color 0.2s;
+}
+.faq-item:hover .faq-header h3 {
+  color: var(--blue);
 }
 .faq-toggle {
   width: 24px;
@@ -432,7 +621,7 @@ nav.scrolled {
   margin-top: 0;
 }
 .faq-item.open .faq-content {
-  max-height: 300px;
+  max-height: 400px;
   margin-top: 16px;
 }
 .faq-text {
@@ -442,8 +631,8 @@ nav.scrolled {
 }
 /* Contact Section */
 .contact {
-  padding: 100px 40px;
-  background: var(--off-white);
+  padding: 120px 40px;
+  background: linear-gradient(180deg, #F5F5F7 0%, #FFFFFF 100%);
 }
 .contact-grid {
   display: grid;
@@ -456,6 +645,7 @@ nav.scrolled {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  animation: slideInLeft 0.8s ease;
 }
 .form-group {
   display: flex;
@@ -483,7 +673,7 @@ nav.scrolled {
 .form-group textarea:focus {
   outline: none;
   border-color: var(--blue);
-  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
 }
 .form-group textarea {
   resize: vertical;
@@ -498,6 +688,7 @@ nav.scrolled {
   display: flex;
   flex-direction: column;
   gap: 32px;
+  animation: slideInRight 0.8s ease;
 }
 .info-block h4 {
   font-size: 13px;
@@ -518,7 +709,7 @@ nav.scrolled {
   transition: color 0.2s;
 }
 .info-block a:hover {
-  color: #0052A3;
+  color: var(--blue-dark);
 }
 /* Footer */
 footer {
@@ -527,7 +718,7 @@ footer {
   padding: 60px 40px;
   text-align: center;
   font-size: 12px;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 footer a {
   color: white;
@@ -541,7 +732,11 @@ footer a:hover {
 /* Responsive */
 @media(max-width: 768px) {
   .hero {
+    height: auto;
     padding: 100px 20px 60px;
+  }
+  .hero-content {
+    padding: 20px;
   }
   .hero h1 {
     font-size: 2rem;
@@ -556,6 +751,9 @@ footer a:hover {
   .contact-grid {
     grid-template-columns: 1fr;
     gap: 40px;
+  }
+  .philosophy-image {
+    height: 300px;
   }
   .nav-links {
     display: none;
@@ -589,11 +787,15 @@ footer a:hover {
 </nav>
 
 <section class="hero">
-  <h1>Assistenza Sanitaria Personalizzata</h1>
-  <p>Dedicare Solutions affianca anziani, adulti, bambini e disabili nel percorso di cura domiciliare, ospedaliero e durante ogni spostamento. Disponibili 24 ore su 24, 7 giorni su 7.</p>
-  <div class="hero-btns">
-    <a href="#contatti" class="btn-primary">Richiedi Assistenza</a>
-    <a href="https://wa.me/393882536992" class="btn-secondary">Contatta via WhatsApp</a>
+  <div class="hero-bg"></div>
+  <div class="hero-image"></div>
+  <div class="hero-content">
+    <h1>Assistenza Sanitaria Personalizzata</h1>
+    <p>Dedicare Solutions affianca anziani, adulti, bambini e disabili nel percorso di cura domiciliare, ospedaliero e durante ogni spostamento. Disponibili 24 ore su 24, 7 giorni su 7.</p>
+    <div class="hero-btns">
+      <a href="#contatti" class="btn-primary">Richiedi Assistenza</a>
+      <a href="https://wa.me/393882536992" class="btn-secondary">Contatta via WhatsApp</a>
+    </div>
   </div>
 </section>
 
@@ -623,7 +825,7 @@ footer a:hover {
   </div>
   
   <div class="services-grid">
-    <div class="service-card reveal-scroll">
+    <div class="service-card">
       <div class="service-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 2v20M2 12h20"/>
@@ -638,7 +840,7 @@ footer a:hover {
       </ul>
     </div>
     
-    <div class="service-card reveal-scroll">
+    <div class="service-card">
       <div class="service-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 2v20M2 12h20"/>
@@ -653,7 +855,7 @@ footer a:hover {
       </ul>
     </div>
     
-    <div class="service-card reveal-scroll">
+    <div class="service-card">
       <div class="service-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 2v20M2 12h20"/>
@@ -668,7 +870,7 @@ footer a:hover {
       </ul>
     </div>
     
-    <div class="service-card reveal-scroll">
+    <div class="service-card">
       <div class="service-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 2v20M2 12h20"/>
@@ -686,34 +888,38 @@ footer a:hover {
 </section>
 
 <section class="philosophy" id="filosofia">
-  <div class="section-header" style="margin-bottom: 40px;">
+  <div class="section-header" style="margin-bottom: 60px;">
     <h2>La Nostra Visione</h2>
   </div>
   
   <div class="philosophy-grid">
-    <div class="philosophy-text reveal-scroll">
+    <div class="philosophy-text">
       <h3>Filosofia Dedicare</h3>
       <p>Crediamo che la sanità di qualità deve essere accessibile a tutti. Ogni persona merita assistenza personalizzata, compassionevole e professionale, indipendentemente dall'età o dalle condizioni di salute.</p>
       <p>Il nostro team è dedicato a fornire non solo cure mediche, ma anche supporto emotivo e umano che fa la differenza nella vita dei nostri pazienti e delle loro famiglie.</p>
+      
+      <div class="pillars">
+        <div class="pillar">
+          <h4>Compassione</h4>
+          <p>Ascoltiamo e comprendiamo le esigenze di ogni paziente</p>
+        </div>
+        <div class="pillar">
+          <h4>Eccellenza</h4>
+          <p>Operatori qualificati e aggiornati sulle migliori pratiche</p>
+        </div>
+        <div class="pillar">
+          <h4>Disponibilità</h4>
+          <p>Sempre presenti, 24 ore su 24, 7 giorni su 7</p>
+        </div>
+        <div class="pillar">
+          <h4>Innovazione</h4>
+          <p>Utilizziamo le tecnologie più avanzate per il benessere</p>
+        </div>
+      </div>
     </div>
     
-    <div class="pillars">
-      <div class="pillar reveal-scroll">
-        <h4>Compassione</h4>
-        <p>Ascoltiamo e comprendiamo le esigenze di ogni paziente</p>
-      </div>
-      <div class="pillar reveal-scroll">
-        <h4>Eccellenza</h4>
-        <p>Operatori qualificati e aggiornati sulle migliori pratiche</p>
-      </div>
-      <div class="pillar reveal-scroll">
-        <h4>Disponibilità</h4>
-        <p>Sempre presenti, 24 ore su 24, 7 giorni su 7</p>
-      </div>
-      <div class="pillar reveal-scroll">
-        <h4>Innovazione</h4>
-        <p>Utilizziamo le tecnologie più avanzate per il benessere</p>
-      </div>
+    <div class="philosophy-image">
+      <img src="images/caregiver.jpg" alt="Caregiver professionista" loading="lazy"/>
     </div>
   </div>
 </section>
@@ -725,43 +931,43 @@ footer a:hover {
   </div>
   
   <div class="faq-list">
-    <div class="faq-item reveal-scroll">
+    <div class="faq-item">
       <div class="faq-header">
         <h3>Come posso richiedere l'assistenza?</h3>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-content">
-        <p class="faq-text">Puoi contattarci via WhatsApp, telefono o compilando il modulo di contatto. Il nostro team risponderà entro 24 ore per valutare le tue esigenze.</p>
+        <p class="faq-text">Puoi contattarci via WhatsApp, telefono o compilando il modulo di contatto. Il nostro team risponderà entro 24 ore per valutare le tue esigenze specifiche e proporre la soluzione migliore.</p>
       </div>
     </div>
     
-    <div class="faq-item reveal-scroll">
+    <div class="faq-item">
       <div class="faq-header">
         <h3>Quali sono i costi dei servizi?</h3>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-content">
-        <p class="faq-text">I costi variano in base al tipo di assistenza richiesta e alla durata. Offriamo preventivi personalizzati e trasparenti. Contattaci per una valutazione gratuita.</p>
+        <p class="faq-text">I costi variano in base al tipo di assistenza richiesta e alla durata. Offriamo preventivi personalizzati e trasparenti. Contattaci per una valutazione gratuita senza impegno.</p>
       </div>
     </div>
     
-    <div class="faq-item reveal-scroll">
+    <div class="faq-item">
       <div class="faq-header">
         <h3>Siete disponibili anche di notte?</h3>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-content">
-        <p class="faq-text">Sì, siamo disponibili 24 ore su 24, 7 giorni su 7. Puoi contattarci in qualsiasi momento per emergenze o esigenze urgenti.</p>
+        <p class="faq-text">Sì, siamo disponibili 24 ore su 24, 7 giorni su 7, inclusi festivi. Puoi contattarci in qualsiasi momento per emergenze o esigenze urgenti senza alcun costo aggiuntivo.</p>
       </div>
     </div>
     
-    <div class="faq-item reveal-scroll">
+    <div class="faq-item">
       <div class="faq-header">
         <h3>Come garantite la qualità del servizio?</h3>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-content">
-        <p class="faq-text">Tutti i nostri operatori sono certificati e regolarmente formati. Effettuiamo controlli di qualità continui e ascoltiamo il feedback dei pazienti.</p>
+        <p class="faq-text">Tutti i nostri operatori sono certificati e regolarmente formati. Effettuiamo controlli di qualità continui e ascoltiamo attentamente il feedback dei pazienti per migliorare costantemente.</p>
       </div>
     </div>
   </div>
@@ -792,7 +998,7 @@ footer a:hover {
         <textarea placeholder="Descrivi brevemente le esigenze del paziente..."></textarea>
       </div>
       <div class="form-btns">
-        <button class="btn-primary" onclick="this.textContent='Inviato ✓';this.style.background='#34C759';setTimeout(()=>{this.textContent='Invia Richiesta';this.style.background='var(--blue)';},3000);">Invia Richiesta</button>
+        <button class="btn-primary" onclick="this.textContent='Inviato ✓';this.style.background='linear-gradient(135deg, #34C759, #30B84D)';setTimeout(()=>{this.textContent='Invia Richiesta';this.style.background='linear-gradient(135deg, var(--blue), #0099FF)';},3000);">Invia Richiesta</button>
         <a href="https://wa.me/393882536992" class="btn-secondary">WhatsApp</a>
       </div>
     </div>
@@ -834,6 +1040,15 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 10);
 });
 
+// Parallax effect
+window.addEventListener('scroll', () => {
+  const parallaxElements = document.querySelectorAll('.hero-image');
+  parallaxElements.forEach(el => {
+    const scrollPos = window.scrollY;
+    el.style.transform = `translateY(${scrollPos * 0.5}px)`;
+  });
+});
+
 // FAQ toggle
 document.querySelectorAll('.faq-header').forEach(header => {
   header.addEventListener('click', () => {
@@ -842,7 +1057,7 @@ document.querySelectorAll('.faq-header').forEach(header => {
   });
 });
 
-// Smooth scroll animations (fallback for older browsers)
+// Intersection Observer for animations
 const observerOptions = {
   threshold: 0.1,
   rootMargin: '0px 0px -50px 0px'
@@ -857,7 +1072,8 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
-document.querySelectorAll('.reveal-scroll').forEach(el => {
+// Smooth scroll animations
+document.querySelectorAll('.service-card, .pillar, .faq-item').forEach(el => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(40px)';
   el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
