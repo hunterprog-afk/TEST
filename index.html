@@ -7,179 +7,559 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --white:#FFFFFF;--off-white:#F7F9FC;--cream:#FFF9F0;
-  --blue:#0B5FA5;--blue-dark:#07447C;--blue-light:#E8F1FB;--blue-soft:#F0F6FC;
-  --teal:#15A89A;--teal-light:#E1F5F3;
-  --coral:#E86A4C;--coral-light:#FCEEE9;
-  --amber:#F4A442;--amber-light:#FEF3E2;
-  --joy-yellow:#FFD700;--joy-pink:#FF8A80;--joy-green:#4CAF50;
-  --black:#1A2332;--gray:#5A6778;--gray-light:#8B96A5;
-  --border-light:#E5EAF0;--border:#D4DCE6;
+  --white:#FFFFFF;--off-white:#F5F5F7;--gray-light:#F9F9FB;
+  --black:#000000;--gray:#6E6E73;--gray-dark:#1D1D1D;
+  --blue:#0066CC;--blue-light:#F0F4FF;
+  --border:#E5E5EA;
 }
 html{scroll-behavior:smooth;}
-body{font-family:'Georgia',serif;background:var(--white);color:var(--black);line-height:1.7;overflow-x:hidden;}
-.reveal{opacity:0;transform:translateY(32px);transition:opacity .75s ease,transform .75s ease;}
-.reveal.on{opacity:1;transform:none;}
-.reveal-l{opacity:0;transform:translateX(-40px);transition:opacity .8s ease,transform .8s ease;}
-.reveal-l.on{opacity:1;transform:none;}
-.reveal-r{opacity:0;transform:translateX(40px);transition:opacity .8s ease,transform .8s ease;}
-.reveal-r.on{opacity:1;transform:none;}
-.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}.d5{transition-delay:.5s;}
-nav{position:sticky;top:0;z-index:200;background:var(--white);border-bottom:1px solid var(--border-light);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:74px;transition:box-shadow .3s;}
-nav.shadow{box-shadow:0 4px 24px rgba(11,95,165,.12);}
-.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
-.logo-circle{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#0B5FA5,#15A89A);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(11,95,165,.2);border:2px solid var(--blue);transition:transform .3s;flex-shrink:0;}
-.nav-logo:hover .logo-circle{transform:scale(1.12) rotate(-8deg);}
-.nav-brand{font-size:22px;color:var(--black);letter-spacing:.02em;}
-.nav-brand b{color:var(--blue);font-weight:400;font-style:italic;}
-.nav-links{display:flex;gap:0;list-style:none;}
-.nav-links a{padding:0 18px;font-family:sans-serif;font-size:13px;color:var(--gray);text-decoration:none;letter-spacing:.05em;text-transform:uppercase;height:74px;display:flex;align-items:center;border-bottom:3px solid transparent;transition:color .2s,border-color .2s;font-weight:500;}
-.nav-links a:hover{color:var(--blue);border-color:var(--joy-yellow);}
-.nav-actions{display:flex;gap:10px;align-items:center;}
-.btn-nav-ghost{font-family:sans-serif;font-size:12px;color:var(--blue);border:1.5px solid var(--blue);padding:8px 18px;border-radius:12px;text-decoration:none;transition:all .2s;letter-spacing:.04em;text-transform:uppercase;font-weight:500;min-height:44px;display:flex;align-items:center;}
-.btn-nav-ghost:hover{background:var(--blue);color:#fff;transform:translateY(-2px);}
-.btn-nav-solid{font-family:sans-serif;font-size:12px;background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;padding:9px 20px;border-radius:12px;text-decoration:none;transition:all .2s;letter-spacing:.04em;text-transform:uppercase;font-weight:500;box-shadow:0 4px 14px rgba(11,95,165,.3);min-height:44px;display:flex;align-items:center;}
-.btn-nav-solid:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(11,95,165,.4);}
-.mobile-menu-btn{display:none;background:none;border:1.5px solid var(--border);width:44px;height:44px;align-items:center;justify-content:center;border-radius:12px;cursor:pointer;padding:0;flex-shrink:0;}
-.mobile-menu-btn span{display:block;width:20px;height:2px;background:var(--black);position:relative;transition:.3s;}
-.mobile-menu-btn span::before,.mobile-menu-btn span::after{content:'';position:absolute;left:0;width:20px;height:2px;background:var(--black);transition:.3s;}
-.mobile-menu-btn span::before{top:-6px;}
-.mobile-menu-btn span::after{top:6px;}
-.mobile-menu-btn.active span{background:transparent;}
-.mobile-menu-btn.active span::before{top:0;transform:rotate(45deg);}
-.mobile-menu-btn.active span::after{top:0;transform:rotate(-45deg);}
-.hero{background:linear-gradient(135deg,#FFF9F0 0%,#E8F1FB 50%,#E1F5F3 100%);padding:90px 5% 80px;display:flex;flex-direction:column;align-items:flex-start;border-bottom:1px solid var(--border-light);position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;right:-120px;top:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(11,95,165,.1) 0%,transparent 70%);z-index:0;animation:float 8s ease-in-out infinite;}
-.hero::after{content:'';position:absolute;left:-80px;bottom:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(244,164,66,.15) 0%,transparent 70%);z-index:0;animation:float 10s ease-in-out infinite reverse;}
-@keyframes float{0%,100%{transform:translateY(0px);}50%{transform:translateY(20px);}}
-.hero-content{position:relative;z-index:1;width:100%;}
-.hero-logo-big{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#0B5FA5,#15A89A);display:flex;align-items:center;justify-content:center;margin-bottom:28px;box-shadow:0 10px 30px rgba(11,95,165,.25);border:3px solid var(--blue);position:relative;animation:bounce 2s ease-in-out infinite;}
-.hero-logo-big::after{content:'';position:absolute;inset:-10px;border-radius:50%;border:2px dashed rgba(11,95,165,.3);animation:spin 20s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
-.hero-logo-big svg{width:58px;height:58px;}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:2px solid var(--joy-yellow);padding:7px 16px;border-radius:24px;font-family:sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:24px;font-weight:600;box-shadow:0 4px 12px rgba(255,215,0,.2);animation:slideInLeft .6s ease-out;}
-.hero-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--joy-yellow);box-shadow:0 0 0 3px rgba(255,215,0,.2);animation:pulse 2s infinite;flex-shrink:0;}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(255,215,0,.2);}50%{box-shadow:0 0 0 8px rgba(255,215,0,.05);}}
-@keyframes slideInLeft{from{opacity:0;transform:translateX(-30px);}to{opacity:1;transform:translateX(0);}}
-.hero h1{font-size:clamp(1.9rem,4.2vw,3.4rem);font-weight:400;line-height:1.15;color:var(--black);margin-bottom:22px;animation:fadeInUp .8s ease-out .2s both;}
-.hero h1 em{color:var(--blue);font-style:italic;}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
-.hero-sub{font-family:sans-serif;font-size:15px;color:var(--gray);line-height:1.8;margin-bottom:36px;max-width:520px;animation:fadeInUp .8s ease-out .4s both;}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;animation:fadeInUp .8s ease-out .6s both;}
-.btn-primary{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;padding:15px 30px;font-family:sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:12px;transition:all .3s;display:inline-flex;align-items:center;justify-content:center;font-weight:600;box-shadow:0 6px 20px rgba(11,95,165,.3);min-height:52px;position:relative;overflow:hidden;}
-.btn-primary::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:rgba(255,255,255,.2);transition:left .3s;}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(11,95,165,.4);}
-.btn-primary:hover::before{left:100%;}
-.btn-outline{border:2px solid var(--blue);color:var(--blue);padding:14px 30px;font-family:sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:12px;transition:all .3s;display:inline-flex;align-items:center;justify-content:center;font-weight:600;background:#fff;min-height:52px;}
-.btn-outline:hover{background:var(--blue);color:#fff;transform:translateY(-3px);box-shadow:0 6px 20px rgba(11,95,165,.2);}
-.btn-coral{background:linear-gradient(135deg,var(--coral),var(--joy-pink));color:#fff;padding:15px 30px;font-family:sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:12px;transition:all .3s;display:inline-flex;align-items:center;justify-content:center;font-weight:600;min-height:52px;box-shadow:0 6px 20px rgba(232,106,76,.2);}
-.btn-coral:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(232,106,76,.3);}
-.stats-bar{background:linear-gradient(90deg,#fff 0%,#F7F9FC 100%);border-bottom:1px solid var(--border-light);padding:0 5%;display:grid;grid-template-columns:repeat(4,1fr);}
-.stat-item{padding:32px 20px;border-right:1px solid var(--border-light);text-align:center;transition:all .25s;position:relative;cursor:pointer;}
-.stat-item:last-child{border-right:none;}
-.stat-item:hover{background:linear-gradient(180deg,var(--blue-soft),var(--teal-light));}
-.stat-item::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--teal));transform:scaleX(0);transition:transform .3s;}
-.stat-item:hover::before{transform:scaleX(1);}
-.stat-num{font-size:2.2rem;color:var(--blue);line-height:1;margin-bottom:6px;font-weight:600;transition:transform .3s;}
-.stat-item:hover .stat-num{transform:scale(1.15);}
-.stat-label{font-family:sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);font-weight:500;}
-.quick-links{background:linear-gradient(135deg,var(--blue-soft),var(--teal-light));padding:18px 5%;display:flex;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--border-light);}
-.quick-link{background:#fff;border:1.5px solid var(--border-light);padding:12px 20px;border-radius:24px;font-family:sans-serif;font-size:13px;color:var(--black);text-decoration:none;display:flex;align-items:center;gap:8px;transition:all .2s;font-weight:500;min-height:44px;}
-.quick-link:hover{background:var(--blue);color:#fff;border-color:var(--blue);transform:translateY(-3px);box-shadow:0 8px 20px rgba(11,95,165,.25);}
-.quick-link svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0;}
-section{padding:88px 5%;}
-.sec-eyebrow{font-family:sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;font-weight:600;}
-.sec-title{font-size:clamp(1.6rem,3vw,2.7rem);font-weight:400;line-height:1.2;color:var(--black);margin-bottom:12px;}
-.sec-title em{font-style:italic;color:var(--blue);}
-.sec-rule{width:48px;height:4px;background:linear-gradient(90deg,var(--blue),var(--teal));margin-bottom:36px;border-radius:2px;}
-#servizi{background:linear-gradient(180deg,#fff 0%,#F7F9FC 100%);}
-.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:12px;}
-.svc{background:#fff;padding:36px 28px;position:relative;overflow:hidden;transition:all .3s;border:1.5px solid var(--border-light);border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
-.svc:hover{box-shadow:0 20px 40px rgba(11,95,165,.15);transform:translateY(-8px);border-color:var(--blue-light);}
-.svc-top-bar{position:absolute;top:0;left:0;right:0;height:5px;transform:scaleX(0);transition:transform .4s;transform-origin:left;border-radius:20px 20px 0 0;}
-.svc:nth-child(1) .svc-top-bar{background:linear-gradient(90deg,var(--blue),var(--joy-yellow));}
-.svc:nth-child(2) .svc-top-bar{background:linear-gradient(90deg,var(--teal),var(--joy-green));}
-.svc:nth-child(3) .svc-top-bar{background:linear-gradient(90deg,var(--coral),var(--joy-pink));}
-.svc:nth-child(4) .svc-top-bar{background:linear-gradient(90deg,var(--amber),var(--joy-yellow));}
-.svc:hover .svc-top-bar{transform:scaleX(1);}
-.svc-num{font-family:sans-serif;font-size:11px;letter-spacing:.15em;margin-bottom:18px;font-weight:600;}
-.svc:nth-child(1) .svc-num{color:var(--blue);}
-.svc:nth-child(2) .svc-num{color:var(--teal);}
-.svc:nth-child(3) .svc-num{color:var(--coral);}
-.svc:nth-child(4) .svc-num{color:var(--amber);}
-.svc-icon{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:all .3s;}
-.svc:hover .svc-icon{transform:scale(1.15) rotate(-5deg);}
-.svc:nth-child(1) .svc-icon{background:linear-gradient(135deg,var(--blue-light),rgba(11,95,165,.1));}
-.svc:nth-child(2) .svc-icon{background:linear-gradient(135deg,var(--teal-light),rgba(21,168,154,.1));}
-.svc:nth-child(3) .svc-icon{background:linear-gradient(135deg,var(--coral-light),rgba(232,106,76,.1));}
-.svc:nth-child(4) .svc-icon{background:linear-gradient(135deg,var(--amber-light),rgba(244,164,66,.1));}
-.svc h3{font-size:18px;font-weight:400;margin-bottom:10px;}
-.svc p{font-family:sans-serif;font-size:13px;color:var(--gray);line-height:1.75;margin-bottom:16px;}
-.svc-list{list-style:none;display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:1px solid var(--border-light);}
-.svc-list li{font-family:sans-serif;font-size:12px;color:var(--gray);padding-left:18px;position:relative;line-height:1.5;}
-.svc-list li::before{content:'✓';position:absolute;left:0;font-size:11px;font-weight:700;}
-.svc:nth-child(1) .svc-list li::before{color:var(--blue);}
-.svc:nth-child(2) .svc-list li::before{color:var(--teal);}
-.svc:nth-child(3) .svc-list li::before{color:var(--coral);}
-.svc:nth-child(4) .svc-list li::before{color:var(--amber);}
-.manifesto{background:linear-gradient(135deg,var(--black) 0%,#15233A 100%);padding:88px 5%;position:relative;overflow:hidden;}
-.manifesto::before{content:'';position:absolute;right:-150px;top:-150px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(11,95,165,.2) 0%,transparent 70%);animation:float 10s ease-in-out infinite;}
-.manifesto .sec-eyebrow{color:var(--joy-yellow);}
-.manifesto .sec-title{color:#fff;}
-.manifesto .sec-title em{color:var(--joy-yellow);}
-.manifesto .sec-rule{background:linear-gradient(90deg,var(--joy-yellow),var(--coral));}
-.manifesto-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;margin-top:12px;position:relative;z-index:1;}
-.manifesto-text p{font-family:sans-serif;font-size:15px;color:#B8C4D2;line-height:1.9;margin-bottom:20px;}
-.manifesto-text strong{color:#fff;font-weight:500;}
-.pillars{display:flex;flex-direction:column;gap:12px;}
-.pillar{background:rgba(255,255,255,.05);padding:20px 24px;border-left:4px solid transparent;transition:all .25s;border-radius:0 12px 12px 0;}
-.pillar:nth-child(1):hover{border-color:var(--blue);background:rgba(11,95,165,.15);}
-.pillar:nth-child(2):hover{border-color:var(--teal);background:rgba(21,168,154,.15);}
-.pillar:nth-child(3):hover{border-color:var(--joy-yellow);background:rgba(255,215,0,.1);}
-.pillar:nth-child(4):hover{border-color:var(--coral);background:rgba(232,106,76,.15);}
-.pillar h4{font-size:15px;color:#fff;margin-bottom:6px;font-weight:500;font-family:sans-serif;}
-.pillar p{font-family:sans-serif;font-size:13px;color:#8B96A5;line-height:1.6;}
-#faq{background:linear-gradient(180deg,#F7F9FC 0%,#fff 100%);}
-.faq-list{display:flex;flex-direction:column;gap:16px;margin-top:12px;max-width:800px;}
-.faq-item{background:#fff;border:1.5px solid var(--border-light);border-radius:16px;overflow:hidden;transition:all .3s;}
-.faq-item:hover{border-color:var(--blue);box-shadow:0 8px 24px rgba(11,95,165,.1);}
-.faq-header{padding:20px 24px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-weight:500;transition:all .2s;}
-.faq-header:hover{background:var(--blue-soft);}
-.faq-toggle{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--teal));display:flex;align-items:center;justify-content:center;color:#fff;transition:transform .3s;flex-shrink:0;}
-.faq-item.open .faq-toggle{transform:rotate(180deg);}
-.faq-content{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 24px;}
-.faq-item.open .faq-content{max-height:500px;padding:0 24px 20px;}
-.faq-text{font-family:sans-serif;font-size:13px;color:var(--gray);line-height:1.75;}
-#contatti{background:linear-gradient(135deg,var(--blue-soft) 0%,var(--teal-light) 100%);}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:900px;}
-.form-group{display:flex;flex-direction:column;gap:12px;}
-.form-group label{font-family:sans-serif;font-size:13px;font-weight:600;color:var(--black);letter-spacing:.05em;text-transform:uppercase;}
-.form-group input,.form-group textarea{padding:14px 16px;border:1.5px solid var(--border-light);border-radius:12px;font-family:sans-serif;font-size:13px;transition:all .2s;background:#fff;}
-.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(11,95,165,.1);}
-.form-row{display:flex;flex-direction:column;gap:12px;}
-.form-row input{padding:14px 16px;border:1.5px solid var(--border-light);border-radius:12px;font-family:sans-serif;font-size:13px;transition:all .2s;background:#fff;}
-.form-row input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(11,95,165,.1);}
-.form-row textarea{padding:14px 16px;border:1.5px solid var(--border-light);border-radius:12px;font-family:sans-serif;font-size:13px;transition:all .2s;background:#fff;min-height:120px;resize:vertical;}
-.form-row textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(11,95,165,.1);}
-.form-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;}
-.fbtn{padding:14px 28px;border:none;border-radius:12px;font-family:sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;min-height:48px;}
-.fbtn-dark{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;box-shadow:0 6px 20px rgba(11,95,165,.3);}
-.fbtn-dark:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(11,95,165,.4);}
-.fbtn-wa{background:linear-gradient(135deg,#25D366,#20BA58);color:#fff;box-shadow:0 6px 20px rgba(37,211,102,.3);}
-.fbtn-wa:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(37,211,102,.4);}
-@media(max-width:1024px){
-  .services-grid{grid-template-columns:repeat(2,1fr);}
-  .manifesto-grid{grid-template-columns:1fr;}
-  .form-grid{grid-template-columns:1fr;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','San Francisco','Helvetica Neue',sans-serif;
+  background:var(--white);
+  color:var(--black);
+  line-height:1.6;
+  overflow-x:hidden;
 }
-@media(max-width:768px){
-  .nav-links{display:none;}
-  .mobile-menu-btn{display:flex;}
-  .nav-links.open{display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;background:#fff;border-bottom:1px solid var(--border-light);padding:20px 5%;z-index:199;}
-  .nav-links.open a{height:auto;padding:12px 0;border-bottom:none;}
-  .services-grid{grid-template-columns:1fr;}
-  .stats-bar{grid-template-columns:repeat(2,1fr);}
+/* Smooth scroll animations */
+@supports (animation-timeline: view()) {
+  .reveal-scroll {
+    animation: fadeInUp linear;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+nav.scrolled {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--black);
+}
+.logo-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0066CC, #0099FF);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.logo-circle svg {
+  width: 18px;
+  height: 18px;
+}
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  color: var(--gray);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover {
+  color: var(--black);
+}
+.nav-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.btn-nav {
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.btn-nav-outline {
+  border: 1px solid var(--border);
+  color: var(--black);
+  background: transparent;
+}
+.btn-nav-outline:hover {
+  background: var(--off-white);
+}
+.btn-nav-solid {
+  background: var(--blue);
+  color: white;
+}
+.btn-nav-solid:hover {
+  background: #0052A3;
+}
+@media(max-width: 768px) {
+  nav {
+    padding: 0 20px;
+  }
+  .nav-links {
+    display: none;
+  }
+}
+/* Hero Section */
+.hero {
+  padding: 120px 40px 80px;
+  text-align: center;
+  background: var(--white);
+  margin-top: 48px;
+  animation: fadeInUp 0.8s ease;
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--black);
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+.hero p {
+  font-size: 18px;
+  color: var(--gray);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  background: var(--blue);
+  color: white;
+  padding: 12px 28px;
+  border-radius: 24px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-primary:hover {
+  background: #0052A3;
+  transform: translateY(-2px);
+}
+.btn-secondary {
+  background: var(--off-white);
+  color: var(--blue);
+  padding: 12px 28px;
+  border-radius: 24px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-secondary:hover {
+  background: #E8E8ED;
+}
+/* Stats Section */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  padding: 60px 40px;
+  background: var(--off-white);
+  text-align: center;
+}
+.stat-item {
+  animation: scaleIn 0.6s ease;
+}
+.stat-num {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 13px;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+/* Services Section (Bento Grid) */
+.services {
+  padding: 100px 40px;
+  background: var(--white);
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: fadeInUp 0.8s ease;
+}
+.section-header h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+.section-header p {
+  font-size: 16px;
+  color: var(--gray);
+  max-width: 500px;
+  margin: 0 auto;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.service-card {
+  background: var(--off-white);
+  padding: 40px 32px;
+  border-radius: 28px;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.8s ease;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  background: var(--white);
+}
+.service-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--blue-light);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  transition: all 0.3s;
+}
+.service-card:hover .service-icon {
+  transform: scale(1.1);
+}
+.service-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--blue);
+}
+.service-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--black);
+  margin-bottom: 8px;
+}
+.service-card p {
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.service-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.service-list li {
+  font-size: 13px;
+  color: var(--gray);
+  padding-left: 20px;
+  position: relative;
+}
+.service-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--blue);
+  font-weight: 600;
+}
+/* Philosophy Section */
+.philosophy {
+  padding: 100px 40px;
+  background: var(--off-white);
+}
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+.philosophy-text h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+.philosophy-text p {
+  font-size: 16px;
+  color: var(--gray);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+.pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.pillar {
+  background: var(--white);
+  padding: 24px 28px;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.3s;
+  animation: fadeInUp 0.8s ease;
+}
+.pillar:hover {
+  border-color: var(--blue);
+  box-shadow: 0 8px 24px rgba(0, 102, 204, 0.1);
+}
+.pillar h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--black);
+  margin-bottom: 6px;
+}
+.pillar p {
+  font-size: 13px;
+  color: var(--gray);
+  line-height: 1.6;
+}
+/* FAQ Section */
+.faq {
+  padding: 100px 40px;
+  background: var(--white);
+}
+.faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 24px 0;
+  animation: fadeInUp 0.8s ease;
+}
+.faq-item:last-child {
+  border-bottom: none;
+}
+.faq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+.faq-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--black);
+}
+.faq-toggle {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue);
+  font-size: 20px;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+.faq-item.open .faq-toggle {
+  transform: rotate(180deg);
+}
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  margin-top: 0;
+}
+.faq-item.open .faq-content {
+  max-height: 300px;
+  margin-top: 16px;
+}
+.faq-text {
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.7;
+}
+/* Contact Section */
+.contact {
+  padding: 100px 40px;
+  background: var(--off-white);
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--black);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.form-group input,
+.form-group textarea {
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  transition: all 0.2s;
+  background: var(--white);
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+.form-btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.info-block h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--black);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.info-block p {
+  font-size: 16px;
+  color: var(--black);
+  line-height: 1.6;
+}
+.info-block a {
+  color: var(--blue);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.info-block a:hover {
+  color: #0052A3;
+}
+/* Footer */
+footer {
+  background: var(--black);
+  color: white;
+  padding: 60px 40px;
+  text-align: center;
+  font-size: 12px;
+  opacity: 0.8;
+}
+footer a {
+  color: white;
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+footer a:hover {
+  opacity: 1;
+}
+/* Responsive */
+@media(max-width: 768px) {
+  .hero {
+    padding: 100px 20px 60px;
+  }
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .services,
+  .philosophy,
+  .faq,
+  .contact {
+    padding: 60px 20px;
+  }
+  .philosophy-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .nav-links {
+    display: none;
+  }
 }
 </style>
 </head>
@@ -188,152 +568,115 @@ section{padding:88px 5%;}
 <nav id="nav">
   <a href="#" class="nav-logo">
     <div class="logo-circle">
-      <svg width="30" height="30" viewBox="0 0 100 100" fill="none">
+      <svg width="18" height="18" viewBox="0 0 100 100" fill="none">
         <path d="M55 18 C45 18 38 25 38 35 C38 40 40 44 42 47 L42 55 L30 55 C24 55 20 59 20 65 L20 80 L70 80 L70 35 C70 25 63 18 55 18 Z" fill="white"/>
-        <path d="M38 55 C33 55 28 60 28 66 C28 72 32 76 36 78 C40 76 43 72 43 66 C43 60 42 55 38 55 Z" fill="#15A89A"/>
-        <circle cx="55" cy="30" r="7" fill="#15A89A"/>
+        <path d="M38 55 C33 55 28 60 28 66 C28 72 32 76 36 78 C40 76 43 72 43 66 C43 60 42 55 38 55 Z" fill="#0066CC"/>
+        <circle cx="55" cy="30" r="7" fill="#0066CC"/>
       </svg>
     </div>
-    <div class="nav-brand">Dedicare <b>Solutions</b></div>
+    Dedicare
   </a>
-  <ul class="nav-links" id="navLinks">
+  <ul class="nav-links">
     <li><a href="#servizi">Servizi</a></li>
     <li><a href="#filosofia">Filosofia</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#contatti">Contatti</a></li>
   </ul>
   <div class="nav-actions">
-    <a href="#contatti" class="btn-nav-ghost">Info</a>
-    <a href="https://wa.me/393882536992" class="btn-nav-solid">Contattaci</a>
+    <a href="#contatti" class="btn-nav btn-nav-outline">Info</a>
+    <a href="https://wa.me/393882536992" class="btn-nav btn-nav-solid">Contattaci</a>
   </div>
-  <button class="mobile-menu-btn" id="menuBtn"><span></span></button>
 </nav>
 
 <section class="hero">
-  <div class="hero-content">
-    <div class="hero-logo-big">
-      <svg width="30" height="30" viewBox="0 0 100 100" fill="none">
-        <path d="M55 18 C45 18 38 25 38 35 C38 40 40 44 42 47 L42 55 L30 55 C24 55 20 59 20 65 L20 80 L70 80 L70 35 C70 25 63 18 55 18 Z" fill="white"/>
-        <path d="M38 55 C33 55 28 60 28 66 C28 72 32 76 36 78 C40 76 43 72 43 66 C43 60 42 55 38 55 Z" fill="#E1F5F3"/>
-        <circle cx="55" cy="30" r="7" fill="#E1F5F3"/>
-      </svg>
-    </div>
-    <div class="hero-badge">✨ Siamo qui per te</div>
-    <h1>Assistenza Sanitaria <em>Personalizzata</em> a Domicilio</h1>
-    <p class="hero-sub">Dedicare Solutions affianca anziani, adulti, bambini e disabili nel percorso di cura domiciliare, ospedaliero e durante ogni spostamento. Disponibili 24 ore su 24, 7 giorni su 7.</p>
-    <div class="hero-btns">
-      <a href="#contatti" class="btn-primary">Richiedi Assistenza</a>
-      <a href="https://wa.me/393882536992" class="btn-outline">Contatta via WhatsApp</a>
-    </div>
+  <h1>Assistenza Sanitaria Personalizzata</h1>
+  <p>Dedicare Solutions affianca anziani, adulti, bambini e disabili nel percorso di cura domiciliare, ospedaliero e durante ogni spostamento. Disponibili 24 ore su 24, 7 giorni su 7.</p>
+  <div class="hero-btns">
+    <a href="#contatti" class="btn-primary">Richiedi Assistenza</a>
+    <a href="https://wa.me/393882536992" class="btn-secondary">Contatta via WhatsApp</a>
   </div>
 </section>
 
-<div class="stats-bar">
+<section class="stats">
   <div class="stat-item">
-    <div class="stat-num" data-target="500">0</div>
+    <div class="stat-num">500+</div>
     <div class="stat-label">Pazienti Assistiti</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num" data-target="24">0</div>
+    <div class="stat-num">24/7</div>
     <div class="stat-label">Ore di Servizio</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num" data-target="98">0</div>
-    <div class="stat-label">% Soddisfazione</div>
+    <div class="stat-num">98%</div>
+    <div class="stat-label">Soddisfazione</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num" data-target="15">0</div>
+    <div class="stat-num">15+</div>
     <div class="stat-label">Anni di Esperienza</div>
   </div>
-</div>
+</section>
 
-<div class="quick-links">
-  <a href="#servizi" class="quick-link">
-    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
-    Scopri i Servizi
-  </a>
-  <a href="#filosofia" class="quick-link">
-    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-    Chi Siamo
-  </a>
-  <a href="#faq" class="quick-link">
-    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-13c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/></svg>
-    Domande Frequenti
-  </a>
-  <a href="#contatti" class="quick-link">
-    <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-    Contattaci
-  </a>
-</div>
-
-<section id="servizi">
-  <div class="sec-eyebrow reveal">Cosa Offriamo</div>
-  <h2 class="sec-title reveal">I Nostri <em>Servizi</em> Principali</h2>
-  <div class="sec-rule reveal"></div>
+<section class="services" id="servizi">
+  <div class="section-header">
+    <h2>I Nostri Servizi</h2>
+    <p>Soluzioni complete per ogni esigenza di assistenza sanitaria</p>
+  </div>
   
   <div class="services-grid">
-    <div class="svc reveal d1">
-      <div class="svc-top-bar"></div>
-      <div class="svc-num">01</div>
-      <div class="svc-icon">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="service-card reveal-scroll">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 2v20M2 12h20"/>
         </svg>
       </div>
       <h3>Assistenza Domiciliare</h3>
       <p>Cura personalizzata presso il domicilio del paziente con operatori qualificati.</p>
-      <ul class="svc-list">
+      <ul class="service-list">
         <li>Infermieristica</li>
         <li>Fisioterapia</li>
         <li>Supporto 24/7</li>
       </ul>
     </div>
     
-    <div class="svc reveal d2">
-      <div class="svc-top-bar"></div>
-      <div class="svc-num">02</div>
-      <div class="svc-icon">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="service-card reveal-scroll">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 2v20M2 12h20"/>
         </svg>
       </div>
       <h3>Assistenza Ospedaliera</h3>
       <p>Supporto durante il ricovero con accompagnamento e assistenza specializzata.</p>
-      <ul class="svc-list">
+      <ul class="service-list">
         <li>Accompagnamento</li>
         <li>Assistenza Medica</li>
         <li>Supporto Psicologico</li>
       </ul>
     </div>
     
-    <div class="svc reveal d3">
-      <div class="svc-top-bar"></div>
-      <div class="svc-num">03</div>
-      <div class="svc-icon">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="service-card reveal-scroll">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 2v20M2 12h20"/>
         </svg>
       </div>
       <h3>Trasporto Sanitario</h3>
       <p>Trasporto sicuro e confortevole con personale specializzato.</p>
-      <ul class="svc-list">
+      <ul class="service-list">
         <li>Ambulanza Privata</li>
         <li>Accompagnamento</li>
         <li>Prenotazione Facile</li>
       </ul>
     </div>
     
-    <div class="svc reveal d4">
-      <div class="svc-top-bar"></div>
-      <div class="svc-num">04</div>
-      <div class="svc-icon">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="service-card reveal-scroll">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 2v20M2 12h20"/>
         </svg>
       </div>
       <h3>Consulenze Specializzate</h3>
       <p>Accesso a specialisti medici e consulenze professionali.</p>
-      <ul class="svc-list">
+      <ul class="service-list">
         <li>Telemedicina</li>
         <li>Consulti Diretti</li>
         <li>Seguiti Continuativi</li>
@@ -342,31 +685,32 @@ section{padding:88px 5%;}
   </div>
 </section>
 
-<section class="manifesto" id="filosofia">
-  <div class="sec-eyebrow reveal">La Nostra Visione</div>
-  <h2 class="sec-title reveal">Filosofia <em>Dedicare</em></h2>
-  <div class="sec-rule reveal"></div>
+<section class="philosophy" id="filosofia">
+  <div class="section-header" style="margin-bottom: 40px;">
+    <h2>La Nostra Visione</h2>
+  </div>
   
-  <div class="manifesto-grid">
-    <div class="manifesto-text reveal-l">
-      <p>Crediamo che <strong>la sanità di qualità deve essere accessibile a tutti</strong>. Ogni persona merita assistenza personalizzata, compassionevole e professionale, indipendentemente dall'età o dalle condizioni di salute.</p>
-      <p>Il nostro team è dedicato a fornire non solo cure mediche, ma anche <strong>supporto emotivo e umano</strong> che fa la differenza nella vita dei nostri pazienti e delle loro famiglie.</p>
+  <div class="philosophy-grid">
+    <div class="philosophy-text reveal-scroll">
+      <h3>Filosofia Dedicare</h3>
+      <p>Crediamo che la sanità di qualità deve essere accessibile a tutti. Ogni persona merita assistenza personalizzata, compassionevole e professionale, indipendentemente dall'età o dalle condizioni di salute.</p>
+      <p>Il nostro team è dedicato a fornire non solo cure mediche, ma anche supporto emotivo e umano che fa la differenza nella vita dei nostri pazienti e delle loro famiglie.</p>
     </div>
     
-    <div class="pillars reveal-r">
-      <div class="pillar">
+    <div class="pillars">
+      <div class="pillar reveal-scroll">
         <h4>Compassione</h4>
         <p>Ascoltiamo e comprendiamo le esigenze di ogni paziente</p>
       </div>
-      <div class="pillar">
+      <div class="pillar reveal-scroll">
         <h4>Eccellenza</h4>
         <p>Operatori qualificati e aggiornati sulle migliori pratiche</p>
       </div>
-      <div class="pillar">
+      <div class="pillar reveal-scroll">
         <h4>Disponibilità</h4>
         <p>Sempre presenti, 24 ore su 24, 7 giorni su 7</p>
       </div>
-      <div class="pillar">
+      <div class="pillar reveal-scroll">
         <h4>Innovazione</h4>
         <p>Utilizziamo le tecnologie più avanzate per il benessere</p>
       </div>
@@ -374,15 +718,16 @@ section{padding:88px 5%;}
   </div>
 </section>
 
-<section id="faq">
-  <div class="sec-eyebrow reveal">Domande Frequenti</div>
-  <h2 class="sec-title reveal">Risposte alle Tue <em>Domande</em></h2>
-  <div class="sec-rule reveal"></div>
+<section class="faq" id="faq">
+  <div class="section-header">
+    <h2>Domande Frequenti</h2>
+    <p>Risposte alle domande più comuni</p>
+  </div>
   
   <div class="faq-list">
-    <div class="faq-item reveal d1">
+    <div class="faq-item reveal-scroll">
       <div class="faq-header">
-        <span>Come posso richiedere l'assistenza?</span>
+        <h3>Come posso richiedere l'assistenza?</h3>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-content">
@@ -390,9 +735,9 @@ section{padding:88px 5%;}
       </div>
     </div>
     
-    <div class="faq-item reveal d2">
+    <div class="faq-item reveal-scroll">
       <div class="faq-header">
-        <span>Quali sono i costi dei servizi?</span>
+        <h3>Quali sono i costi dei servizi?</h3>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-content">
@@ -400,9 +745,9 @@ section{padding:88px 5%;}
       </div>
     </div>
     
-    <div class="faq-item reveal d3">
+    <div class="faq-item reveal-scroll">
       <div class="faq-header">
-        <span>Siete disponibili anche di notte?</span>
+        <h3>Siete disponibili anche di notte?</h3>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-content">
@@ -410,9 +755,9 @@ section{padding:88px 5%;}
       </div>
     </div>
     
-    <div class="faq-item reveal d4">
+    <div class="faq-item reveal-scroll">
       <div class="faq-header">
-        <span>Come garantite la qualità del servizio?</span>
+        <h3>Come garantite la qualità del servizio?</h3>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-content">
@@ -422,143 +767,72 @@ section{padding:88px 5%;}
   </div>
 </section>
 
-<section id="contatti">
-  <div class="sec-eyebrow reveal">Rimaniamo in Contatto</div>
-  <h2 class="sec-title reveal">Contattaci <em>Oggi</em></h2>
-  <div class="sec-rule reveal"></div>
+<section class="contact" id="contatti">
+  <div class="section-header">
+    <h2>Contattaci</h2>
+    <p>Siamo qui per aiutarti</p>
+  </div>
   
-  <div class="form-grid reveal">
-    <div>
-      <div class="form-row"><input type="text" placeholder="Nome Completo" autocomplete="name"/></div>
-      <div class="form-row"><input type="tel" placeholder="Numero di Telefono" autocomplete="tel"/></div>
-      <div class="form-row"><input type="email" placeholder="Indirizzo Email" autocomplete="email"/></div>
-      <div class="form-row"><textarea placeholder="Descrivi brevemente le esigenze del paziente..."></textarea></div>
+  <div class="contact-grid">
+    <div class="contact-form">
+      <div class="form-group">
+        <label>Nome Completo</label>
+        <input type="text" placeholder="Es. Mario Rossi" autocomplete="name"/>
+      </div>
+      <div class="form-group">
+        <label>Numero di Telefono</label>
+        <input type="tel" placeholder="+39 123 456 7890" autocomplete="tel"/>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="tuo@email.com" autocomplete="email"/>
+      </div>
+      <div class="form-group">
+        <label>Messaggio</label>
+        <textarea placeholder="Descrivi brevemente le esigenze del paziente..."></textarea>
+      </div>
       <div class="form-btns">
-        <button class="fbtn fbtn-dark" onclick="this.textContent='Inviato ✓';this.style.background='linear-gradient(135deg, #4CAF50, #45a049)';this.style.boxShadow='0 10px 30px rgba(76,175,80,.4)';setTimeout(()=>{this.textContent='Invia Richiesta';this.style.background='linear-gradient(135deg, #0B5FA5, #15A89A)';this.style.boxShadow='0 6px 20px rgba(11,95,165,.3)';},3000);">Invia Richiesta</button>
-        <a href="https://wa.me/393882536992" class="fbtn fbtn-wa">WhatsApp Ora</a>
+        <button class="btn-primary" onclick="this.textContent='Inviato ✓';this.style.background='#34C759';setTimeout(()=>{this.textContent='Invia Richiesta';this.style.background='var(--blue)';},3000);">Invia Richiesta</button>
+        <a href="https://wa.me/393882536992" class="btn-secondary">WhatsApp</a>
       </div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:20px;">
-      <div>
-        <h4 style="font-family:sans-serif;font-size:13px;font-weight:600;color:var(--black);letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px;">Telefono</h4>
-        <p style="font-family:sans-serif;font-size:15px;color:var(--black);"><a href="tel:+393882536992" style="text-decoration:none;color:var(--blue);">+39 882 536 992</a></p>
+    
+    <div class="contact-info">
+      <div class="info-block">
+        <h4>Telefono</h4>
+        <p><a href="tel:+393882536992">+39 882 536 992</a></p>
       </div>
-      <div>
-        <h4 style="font-family:sans-serif;font-size:13px;font-weight:600;color:var(--black);letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px;">Email</h4>
-        <p style="font-family:sans-serif;font-size:15px;color:var(--black);"><a href="mailto:info@dedicaresolutions.it" style="text-decoration:none;color:var(--blue);">info@dedicaresolutions.it</a></p>
+      <div class="info-block">
+        <h4>Email</h4>
+        <p><a href="mailto:info@dedicaresolutions.it">info@dedicaresolutions.it</a></p>
       </div>
-      <div>
-        <h4 style="font-family:sans-serif;font-size:13px;font-weight:600;color:var(--black);letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px;">Indirizzo</h4>
-        <p style="font-family:sans-serif;font-size:15px;color:var(--black);">Via Roma 80<br/>20054 Segrate (MI)</p>
+      <div class="info-block">
+        <h4>Indirizzo</h4>
+        <p>Via Roma 80<br/>20054 Segrate (MI)</p>
       </div>
-      <div>
-        <h4 style="font-family:sans-serif;font-size:13px;font-weight:600;color:var(--black);letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px;">Orari</h4>
-        <p style="font-family:sans-serif;font-size:15px;color:var(--black);">Disponibili 24/7<br/>Anche festivi e giorni festivi</p>
+      <div class="info-block">
+        <h4>Orari</h4>
+        <p>Disponibili 24/7<br/>Anche festivi e giorni festivi</p>
       </div>
     </div>
   </div>
 </section>
 
-<footer style="background:#1A2332;font-family:sans-serif;">
-  <div class="claim-strip" style="background:#111820;padding:40px 5%;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;border-bottom:1px solid #252d3d;">
-    <div style="display:flex;align-items:center;gap:16px;">
-      <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#0B5FA5,#15A89A);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-        <svg width="30" height="30" viewBox="0 0 100 100" fill="none">
-          <path d="M55 18 C45 18 38 25 38 35 C38 40 40 44 42 47 L42 55 L30 55 C24 55 20 59 20 65 L20 80 L70 80 L70 35 C70 25 63 18 55 18 Z" fill="white"/>
-          <path d="M38 55 C33 55 28 60 28 66 C28 72 32 76 36 78 C40 76 43 72 43 66 C43 60 42 55 38 55 Z" fill="#0B5FA5"/>
-          <circle cx="55" cy="30" r="7" fill="#0B5FA5"/>
-        </svg>
-      </div>
-      <div>
-        <div style="font-family:Georgia,serif;font-size:26px;color:#fff;line-height:1;">Dedicare <span style="color:#15A89A;font-style:italic;">Solutions</span></div>
-        <div style="font-size:11px;color:#8B96A5;letter-spacing:.08em;margin-top:2px;">Assistenza Sanitaria Personalizzata</div>
-      </div>
-    </div>
-    <div style="font-family:Georgia,serif;font-size:18px;color:#B8C4D2;font-style:italic;max-width:480px;text-align:right;line-height:1.4;">La sanità di qualità, oggi, per tutti.</div>
-  </div>
-  <div class="footer-main" style="padding:48px 5%;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;border-bottom:1px solid #252d3d;">
-    <div>
-      <p style="font-size:13px;color:#8B96A5;line-height:1.8;margin-bottom:20px;max-width:320px;">Dedicare Solutions affianca anziani, adulti, bambini e disabili nel percorso di cura domiciliare, ospedaliero e durante ogni spostamento. Disponibili 24 ore su 24, 7 giorni su 7.</p>
-      <div style="font-size:12px;color:#5A6778;line-height:1.9;">
-        Dedicare Solutions S.R.L.S. — Socio Unico<br/>
-        Via Roma 80 – 20054 Segrate (MI)<br/>
-        Tel. <a href="tel:+393882536992" style="color:#5A6778;text-decoration:none;">+39 882 536 992</a><br/>
-        <a href="mailto:info@dedicaresolutions.it" style="color:#5A6778;text-decoration:none;">info@dedicaresolutions.it</a><br/>
-        C.F., P.IVA IT11600760968 – R.E.A. MI–2613682<br/>
-        Capitale Sociale € 1.000,00 i.v.
-      </div>
-    </div>
-    <div>
-      <h5 style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#fff;margin-bottom:20px;font-weight:600;padding-bottom:12px;border-bottom:2px solid #0B5FA5;display:inline-block;">Informazioni Legali</h5>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:11px;">
-        <li><a href="privacy-policy.html" style="font-size:13px;color:#8B96A5;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8B96A5'">Privacy Policy</a></li>
-        <li><a href="cookie-policy.html" style="font-size:13px;color:#8B96A5;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8B96A5'">Cookie Policy</a></li>
-        <li><a href="#" style="font-size:13px;color:#8B96A5;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8B96A5'">Trasparenza</a></li>
-        <li><a href="#" style="font-size:13px;color:#8B96A5;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8B96A5'">Note Legali</a></li>
-        <li><a href="#" style="font-size:13px;color:#8B96A5;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8B96A5'">Impostazioni Cookie</a></li>
-      </ul>
-    </div>
-    <div>
-      <h5 style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#fff;margin-bottom:20px;font-weight:600;padding-bottom:12px;border-bottom:2px solid #15A89A;display:inline-block;">Chi Siamo</h5>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:11px;">
-        <li><a href="#filosofia" style="font-size:13px;color:#8B96A5;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8B96A5'">Filosofia</a></li>
-        <li><a href="#team" style="font-size:13px;color:#8B96A5;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8B96A5'">Il Team</a></li>
-        <li><a href="#pazienti" style="font-size:13px;color:#8B96A5;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8B96A5'">I Pazienti</a></li>
-        <li><a href="#valori" style="font-size:13px;color:#8B96A5;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8B96A5'">I Nostri Valori</a></li>
-        <li><a href="mailto:info@dedicaresolutions.it" style="font-size:13px;color:#8B96A5;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8B96A5'">Lavora con Noi</a></li>
-      </ul>
-    </div>
-    <div>
-      <h5 style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#fff;margin-bottom:20px;font-weight:600;padding-bottom:12px;border-bottom:2px solid #E86A4C;display:inline-block;">Contatti</h5>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:11px;">
-        <li><a href="tel:+393882536992" style="font-size:13px;color:#8B96A5;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8B96A5'">+39 882 536 992</a></li>
-        <li><a href="mailto:info@dedicaresolutions.it" style="font-size:13px;color:#8B96A5;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8B96A5'">info@dedicaresolutions.it</a></li>
-        <li><a href="mailto:dedicaresolutionssrls@pec.it" style="font-size:13px;color:#8B96A5;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8B96A5'">PEC aziendale</a></li>
-        <li><a href="#contatti" style="font-size:13px;color:#8B96A5;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8B96A5'">Modulo di contatto</a></li>
-      </ul>
-    </div>
-  </div>
-  <div style="padding:20px 5%;text-align:center;">
-    <div style="font-size:11px;color:#3D4B5C;">Copyright Reserved ©. 2026, Dedicare Solutions — Tutti i diritti riservati.</div>
-  </div>
+<footer>
+  <p>Copyright © 2026 Dedicare Solutions — Tutti i diritti riservati.</p>
+  <p style="margin-top: 12px; opacity: 0.6;">
+    <a href="#">Privacy Policy</a> • 
+    <a href="#">Cookie Policy</a> • 
+    <a href="#">Trasparenza</a>
+  </p>
 </footer>
 
 <script>
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('shadow',scrollY>10));
-const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');}),{threshold:.1});
-document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>io.observe(el));
-const menuBtn=document.getElementById('menuBtn');
-const navLinks=document.getElementById('navLinks');
-menuBtn.addEventListener('click',()=>{navLinks.classList.toggle('open');menuBtn.classList.toggle('active');});
-navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');menuBtn.classList.remove('active');}));
-
-// Conteggio statistiche
-function animateCounter(element, target) {
-  let current = 0;
-  const increment = target / 30;
-  const timer = setInterval(() => {
-    current += increment;
-    if (current >= target) {
-      element.textContent = target;
-      clearInterval(timer);
-    } else {
-      element.textContent = Math.floor(current);
-    }
-  }, 50);
-}
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
-      const target = parseInt(entry.target.dataset.target);
-      animateCounter(entry.target, target);
-      entry.target.classList.add('counted');
-    }
-  });
-}, { threshold: 0.5 });
-
-document.querySelectorAll('.stat-num').forEach(el => observer.observe(el));
+// Navbar scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 10);
+});
 
 // FAQ toggle
 document.querySelectorAll('.faq-header').forEach(header => {
@@ -566,6 +840,28 @@ document.querySelectorAll('.faq-header').forEach(header => {
     const item = header.parentElement;
     item.classList.toggle('open');
   });
+});
+
+// Smooth scroll animations (fallback for older browsers)
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.reveal-scroll').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(40px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
 });
 </script>
 </body>
