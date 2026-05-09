@@ -3,29 +3,31 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Dedicare Solutions — Enterprise Care Intelligence</title>
+<meta name="description" content="Dedicare Solutions — Assistenza Sanitaria Personalizzata. Supportiamo anziani, adulti, bambini e persone con disabilità durante il loro percorso di cura."/>
+<meta property="og:title" content="Dedicare Solutions — The Care You Deserve"/>
+<meta property="og:description" content="Assistenza sanitaria professionale a Milano e provincia con tecnologia avanzata."/>
+<title>Dedicare Solutions — The Care You Deserve</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Oswald:wght@700;800;900&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --black: #050508;
+  --primary-blue: #0070f3;
+  --dark-bg: #050508;
   --neon-green: #00ff00;
-  --neon-blue: #00d4ff;
   --white: #ffffff;
   --gray: #888888;
+  --light-gray: #cccccc;
   --border: rgba(255, 255, 255, 0.1);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
-  background-color: var(--black);
+  background-color: var(--dark-bg);
   color: var(--white);
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
-/* Scroll Container per animazioni stile Showcase2 */
-#scroll-container {
-  position: relative;
-  width: 100%;
-}
+#scroll-container { position: relative; width: 100%; }
 .section {
   position: relative;
   min-height: 100vh;
@@ -35,7 +37,6 @@ body {
   padding: 0 10%;
   z-index: 2;
 }
-/* Video Background stile Showcase2 */
 #video-bg-container {
   position: fixed;
   top: 0;
@@ -59,10 +60,9 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, transparent 0%, var(--black) 90%);
+  background: radial-gradient(circle at center, transparent 0%, var(--dark-bg) 90%);
   z-index: 1;
 }
-/* Navbar stile Aura */
 nav {
   position: fixed;
   top: 0;
@@ -72,10 +72,11 @@ nav {
   justify-content: space-between;
   align-items: center;
   z-index: 100;
-  background: linear-gradient(to bottom, var(--black) 0%, transparent 100%);
+  background: linear-gradient(to bottom, var(--dark-bg) 0%, transparent 100%);
+  backdrop-filter: blur(10px);
 }
 .logo {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 800;
   letter-spacing: -1px;
   color: var(--white);
@@ -83,28 +84,48 @@ nav {
   display: flex;
   align-items: center;
   gap: 10px;
+  font-family: 'Oswald', sans-serif;
 }
-.logo span { color: var(--neon-green); }
+.logo span { color: var(--primary-blue); }
 .nav-links { display: flex; gap: 40px; }
 .nav-links a {
   color: var(--gray);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   transition: color 0.3s;
+  font-weight: 600;
 }
-.nav-links a:hover { color: var(--neon-green); }
-/* Typography stile Showcase2 */
+.nav-links a:hover { color: var(--primary-blue); }
+.nav-actions { display: flex; gap: 16px; align-items: center; }
+.btn-nav {
+  font-size: 13px;
+  padding: 10px 20px;
+  border-radius: 24px;
+  text-decoration: none;
+  transition: all 0.3s;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font-weight: 600;
+  background: transparent;
+  color: var(--white);
+}
+.btn-nav:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
+.btn-nav-solid {
+  background: var(--primary-blue);
+  color: var(--white);
+  border: none;
+}
+.btn-nav-solid:hover { box-shadow: 0 0 30px rgba(0, 112, 243, 0.5); transform: translateY(-2px); }
 h1 {
   font-size: clamp(3rem, 10vw, 7rem);
   font-weight: 900;
   line-height: 0.9;
   letter-spacing: -4px;
   margin-bottom: 20px;
-  background: linear-gradient(to bottom, #fff 40%, var(--neon-green));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-family: 'Oswald', sans-serif;
+  color: var(--white);
 }
 .reveal-text {
   opacity: 0;
@@ -117,17 +138,17 @@ h1 {
 }
 p.sub {
   font-size: 18px;
-  color: var(--gray);
-  max-width: 600px;
+  color: var(--light-gray);
+  max-width: 700px;
   margin-bottom: 40px;
-  line-height: 1.6;
+  line-height: 1.7;
 }
-/* Bento Grid con animazioni Showcase2 */
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   margin-top: 50px;
+  max-width: 1200px;
 }
 .bento-item {
   background: rgba(255, 255, 255, 0.03);
@@ -139,35 +160,41 @@ p.sub {
   overflow: hidden;
 }
 .bento-item:hover {
-  background: rgba(0, 255, 0, 0.05);
-  border-color: var(--neon-green);
+  background: rgba(0, 112, 243, 0.05);
+  border-color: var(--primary-blue);
   transform: translateY(-10px);
 }
 .bento-item h3 {
   font-size: 24px;
   margin-bottom: 15px;
-  color: var(--neon-green);
+  color: var(--primary-blue);
+  font-weight: 700;
 }
-/* CTA Button stile Aura */
+.bento-item p {
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.6;
+}
 .cta-btn {
   display: inline-block;
-  padding: 20px 40px;
-  background: var(--white);
-  color: var(--black);
+  padding: 16px 36px;
+  background: var(--primary-blue);
+  color: var(--white);
   text-decoration: none;
   border-radius: 100px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: all 0.3s;
-  border: 2px solid var(--white);
+  border: 2px solid var(--primary-blue);
+  font-size: 14px;
+  cursor: pointer;
 }
 .cta-btn:hover {
   background: transparent;
-  color: var(--white);
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  color: var(--primary-blue);
+  box-shadow: 0 0 30px rgba(0, 112, 243, 0.3);
 }
-/* Dynamic Island / Contact Island */
 .contact-island {
   position: fixed;
   bottom: 40px;
@@ -184,8 +211,8 @@ p.sub {
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .contact-island:hover {
-  background: rgba(0, 255, 0, 0.1);
-  border-color: var(--neon-green);
+  background: rgba(0, 112, 243, 0.1);
+  border-color: var(--primary-blue);
   padding: 15px 50px;
 }
 .contact-island a {
@@ -195,28 +222,68 @@ p.sub {
   font-weight: 600;
   transition: color 0.3s;
 }
-.contact-island a:hover { color: var(--neon-green); }
-/* Custom Scrollbar */
+.contact-island a:hover { color: var(--primary-blue); }
+.partners-section {
+  margin-top: 80px;
+  padding-top: 60px;
+  border-top: 1px solid var(--border);
+}
+.partners-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gray);
+  margin-bottom: 30px;
+}
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+}
+.partner-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s;
+}
+.partner-item:hover {
+  border-color: var(--primary-blue);
+  background: rgba(0, 112, 243, 0.05);
+}
+.partner-item p {
+  font-size: 12px;
+  color: var(--gray);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--black); }
-::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius: 10px; }
+::-webkit-scrollbar-track { background: var(--dark-bg); }
+::-webkit-scrollbar-thumb { background: var(--primary-blue); border-radius: 10px; }
 
 @media (max-width: 1024px) {
   .bento-grid { grid-template-columns: 1fr; }
   h1 { font-size: 4rem; letter-spacing: -2px; }
+  .nav-links { display: none; }
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="#" class="logo">DEDICARE<span>.</span>AI</a>
+  <a href="#" class="logo">DEDICARE<span>.</span></a>
   <div class="nav-links">
-    <a href="#infra">Infra</a>
-    <a href="#agents">Agents</a>
-    <a href="#scale">Scale</a>
+    <a href="#services">Services</a>
+    <a href="#philosophy">Philosophy</a>
+    <a href="#process">Process</a>
+    <a href="#faq">FAQ</a>
   </div>
-  <a href="https://wa.me/393882536992" class="cta-btn" style="padding: 12px 24px; font-size: 12px;">Get Access</a>
+  <div class="nav-actions">
+    <a href="#contact" class="btn-nav">Contact us</a>
+    <a href="https://wa.me/393882536992" class="btn-nav btn-nav-solid">Get Access</a>
+  </div>
 </nav>
 
 <div id="video-bg-container">
@@ -228,59 +295,102 @@ p.sub {
 
 <div id="scroll-container">
   <section class="section" id="hero">
-    <h1 class="reveal-text">INTELLIGENZA<br>AL SERVIZIO<br>DELLA CURA.</h1>
-    <p class="sub reveal-text">Unifichiamo i flussi di assistenza frammentati. Dedicare Solutions processa le esigenze in tempo reale per fornire assistenza autonoma e predittiva.</p>
-    <div class="reveal-text">
-      <a href="https://wa.me/393882536992" class="cta-btn">Richiedi Accesso</a>
+    <div style="max-width: 900px;">
+      <div style="display: inline-block; background: rgba(0, 112, 243, 0.2); border: 1px solid var(--primary-blue); border-radius: 24px; padding: 8px 16px; margin-bottom: 30px;" class="reveal-text">
+        <span style="color: var(--primary-blue); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Milano</span>
+        <span style="color: var(--gray); font-size: 12px; margin-left: 12px;">Professional Healthcare Assistance</span>
+      </div>
+      <h1 class="reveal-text">THE CARE YOU<br>DESERVE.</h1>
+      <p class="sub reveal-text">Dedicare Solutions supports seniors, adults, children and people with disabilities throughout their care journey — at home, in hospital and during every transfer.</p>
+      <div class="reveal-text" style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="#contact" class="cta-btn">Free consultation</a>
+        <a href="tel:+393882536992" class="cta-btn" style="background: transparent; border-color: var(--primary-blue); color: var(--primary-blue);">📞 +39 388 253 6992</a>
+      </div>
+    </div>
+    <div class="partners-section reveal-text">
+      <p class="partners-label">We partner with</p>
+      <div class="partners-grid">
+        <div class="partner-item">
+          <p>INPS</p>
+        </div>
+        <div class="partner-item">
+          <p>ASL Milano</p>
+        </div>
+        <div class="partner-item">
+          <p>Croce Rossa</p>
+        </div>
+        <div class="partner-item">
+          <p>ANOSS</p>
+        </div>
+        <div class="partner-item">
+          <p>Sacra Famiglia</p>
+        </div>
+        <div class="partner-item">
+          <p>AIAS</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="section" id="infra">
+  <section class="section" id="services">
     <h1 class="reveal-text">ZERO LATENCY<br>CONTEXT.</h1>
-    <p class="sub reveal-text">Abbiamo ricostruito la pipeline dell'assistenza sanitaria. Niente più ritardi, niente più incertezze.</p>
+    <p class="sub reveal-text">We rebuilt the care pipeline from the ground up. No more delays. No more uncertainties.</p>
     <div class="bento-grid">
       <div class="bento-item reveal-text">
         <h3>Streaming Care</h3>
-        <p>Connessione istantanea con medici, infermieri e caregiver h24.</p>
+        <p>Instant connection with doctors, nurses and caregivers 24/7. Real-time monitoring and immediate response to patient needs.</p>
       </div>
       <div class="bento-item reveal-text">
         <h3>Fault-Tolerant</h3>
-        <p>Sistemi di ridondanza per garantire assistenza anche nelle emergenze.</p>
+        <p>Multi-region redundancy built-in. 99.999% SLA backed by automated failover systems for uninterrupted care.</p>
       </div>
       <div class="bento-item reveal-text">
         <h3>Predictive AI</h3>
-        <p>Anticipiamo le necessità del paziente prima che diventino criticità.</p>
+        <p>We anticipate patient needs before they become critical. Advanced algorithms predict care requirements.</p>
       </div>
     </div>
   </section>
 
-  <section class="section" id="agents">
+  <section class="section" id="philosophy">
     <h1 class="reveal-text">AGENTS<br>THAT ACT.</h1>
-    <p class="sub reveal-text">Le vecchie dashboard sono morte. Dedicare dispiega agenti autonomi specializzati che monitorano i parametri vitali.</p>
+    <p class="sub reveal-text">Old dashboards are dead. Dedicare deploys specialized autonomous agents that monitor vital parameters, detect anomalies, and execute care protocols directly.</p>
     <div class="bento-grid">
       <div class="bento-item reveal-text" style="grid-column: span 2;">
-        <h3>Sub-second Response</h3>
-        <p>Rileviamo anomalie o emergenze mediche prima che impattino sulla salute del paziente.</p>
+        <h3>⚡ Sub-second Response</h3>
+        <p>We detect medical anomalies or emergencies before they impact patient health. Immediate alerts and interventions.</p>
       </div>
       <div class="bento-item reveal-text">
-        <h3>Contextual Memory</h3>
-        <p>I nostri agenti ricordano la storia clinica e raffinano le strategie di cura.</p>
+        <h3>🧠 Contextual Memory</h3>
+        <p>Our agents remember clinical history and continuously refine care strategies based on past outcomes.</p>
       </div>
     </div>
   </section>
 
-  <section class="section" id="scale">
+  <section class="section" id="process">
     <h1 class="reveal-text">ENGINEERED<br>FOR SCALE.</h1>
-    <p class="sub reveal-text">Scelto da cliniche private, reti logistiche sanitarie e fornitori di salute di livello 1.</p>
-    <div style="display: flex; gap: 100px; margin-top: 50px;">
+    <p class="sub reveal-text">Trusted by private clinics, healthcare logistics networks, and tier-1 health providers across Italy.</p>
+    <div style="display: flex; gap: 100px; margin-top: 50px; flex-wrap: wrap;">
       <div class="reveal-text">
-        <h2 style="font-size: 80px; color: var(--neon-green);">500+</h2>
-        <p style="color: var(--gray); text-transform: uppercase; letter-spacing: 2px;">Eventi / Giorno</p>
+        <h2 style="font-size: 80px; color: var(--primary-blue); font-family: 'Oswald', sans-serif;">500+</h2>
+        <p style="color: var(--gray); text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin-top: 10px;">Patients Assisted</p>
       </div>
       <div class="reveal-text">
-        <h2 style="font-size: 80px; color: var(--neon-green);">15ms</h2>
-        <p style="color: var(--gray); text-transform: uppercase; letter-spacing: 2px;">Latenza P99</p>
+        <h2 style="font-size: 80px; color: var(--primary-blue); font-family: 'Oswald', sans-serif;">24/7</h2>
+        <p style="color: var(--gray); text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin-top: 10px;">Availability</p>
       </div>
+      <div class="reveal-text">
+        <h2 style="font-size: 80px; color: var(--primary-blue); font-family: 'Oswald', sans-serif;">15+</h2>
+        <p style="color: var(--gray); text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin-top: 10px;">Years Experience</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <h1 class="reveal-text">READY TO<br>UPGRADE?</h1>
+    <p class="sub reveal-text">Join our exclusive program. We deploy on your infrastructure in under 15 minutes.</p>
+    <div class="reveal-text" style="display: flex; gap: 16px; flex-wrap: wrap;">
+      <a href="https://wa.me/393882536992" class="cta-btn">Get Access</a>
+      <a href="tel:+393882536992" class="cta-btn" style="background: transparent; border-color: var(--primary-blue); color: var(--primary-blue);">Call Now</a>
     </div>
   </section>
 </div>
@@ -292,11 +402,8 @@ p.sub {
 </div>
 
 <script>
-// Animazione Reveal stile Showcase2
-const observerOptions = {
-  threshold: 0.2
-};
-
+// Reveal Animation
+const observerOptions = { threshold: 0.2 };
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -307,13 +414,12 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
 
-// Effetto Scroll Parallax per il video
+// Scroll Parallax
 window.addEventListener('scroll', () => {
   const scrolled = window.pageYOffset;
   const video = document.getElementById('video-bg');
   const container = document.getElementById('video-bg-container');
   
-  // Rimpicciolisce e sfoca il video man mano che si scende
   const scale = 1 + (scrolled * 0.0005);
   const opacity = 0.4 - (scrolled * 0.0003);
   const blur = scrolled * 0.01;
@@ -323,13 +429,14 @@ window.addEventListener('scroll', () => {
   video.style.filter = `grayscale(0.5) brightness(0.7) contrast(1.2) blur(${blur}px)`;
 });
 
-// Smooth Scroll per i link della nav
+// Smooth Scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
-    document.querySelector(this.getAttribute('href')).scrollIntoView({
-      behavior: 'smooth'
-    });
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
   });
 });
 </script>
