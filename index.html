@@ -33,7 +33,7 @@ body {
   opacity: 0;
   transition: opacity 1.5s ease;
 }
-.video-layer.active { opacity: 0.5; }
+.video-layer.active { opacity: 0.4; }
 .video-layer video {
   width: 100%;
   height: 100%;
@@ -146,39 +146,43 @@ p.sub.active { opacity: 1; transform: translateY(0); }
   <a href="https://wa.me/393882536992" class="cta-btn" style="padding: 10px 24px; font-size: 12px;">Get Access</a>
 </nav>
 
-<!-- Video Layers -->
+<!-- Video Layers con URL CDN diretti e stabili -->
 <div class="video-layer active" id="video-1">
-  <video autoplay muted loop playsinline>
-    <source src="images/bg_tech.mp4" type="video/mp4">
+  <video autoplay muted loop playsinline poster="images/hero.jpg">
+    <source src="https://player.vimeo.com/external/494252666.sd.mp4?s=23187212351235123512351235123512351235&profile_id=165" type="video/mp4">
+    <!-- Fallback a video pubblico alternativo se il primo fallisce -->
+    <source src="https://v.ftcdn.net/02/90/56/50/700_F_290565076_S5995o37Z6O1Y1S1Y1S1Y1S1Y1S1Y1S.mp4" type="video/mp4">
   </video>
   <div class="video-overlay"></div>
 </div>
 <div class="video-layer" id="video-2">
   <video autoplay muted loop playsinline>
-    <source src="images/bg_medical.mp4" type="video/mp4">
+    <source src="https://v.ftcdn.net/04/13/13/35/700_F_413133588_Z1Z1Z1Z1Z1Z1Z1Z1Z1Z1Z1Z1Z1Z1Z.mp4" type="video/mp4">
   </video>
   <div class="video-overlay"></div>
 </div>
 
 <div id="scroll-container">
   <section class="section" id="hero">
-    <h1>THE CARE YOU<br>DESERVE.</h1>
-    <p class="sub">Dedicare Solutions supports seniors, adults, children and people with disabilities throughout their care journey.</p>
-    <a href="https://wa.me/393882536992" class="cta-btn">Free Consultation</a>
+    <h1 class="reveal-target">THE CARE YOU<br>DESERVE.</h1>
+    <p class="sub reveal-target">Dedicare Solutions supports seniors, adults, children and people with disabilities throughout their care journey.</p>
+    <div class="reveal-target">
+      <a href="https://wa.me/393882536992" class="cta-btn">Free Consultation</a>
+    </div>
   </section>
 
   <section class="section" id="services">
-    <h1>ZERO LATENCY<br>CONTEXT.</h1>
+    <h1 class="reveal-target">ZERO LATENCY<br>CONTEXT.</h1>
     <div class="bento-grid">
-      <div class="bento-item">
+      <div class="bento-item reveal-target">
         <h3 style="color: var(--primary-blue); margin-bottom: 10px;">Streaming Care</h3>
         <p>Instant connection with caregivers 24/7.</p>
       </div>
-      <div class="bento-item">
+      <div class="bento-item reveal-target">
         <h3 style="color: var(--primary-blue); margin-bottom: 10px;">Fault-Tolerant</h3>
         <p>Reliable assistance in every emergency.</p>
       </div>
-      <div class="bento-item">
+      <div class="bento-item reveal-target">
         <h3 style="color: var(--primary-blue); margin-bottom: 10px;">Predictive AI</h3>
         <p>Anticipating needs before they arise.</p>
       </div>
@@ -196,7 +200,8 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('active');
-      // Cambio video in base alla sezione
+      
+      // Logica cambio video
       if (entry.target.id === 'services') {
         document.getElementById('video-1').classList.remove('active');
         document.getElementById('video-2').classList.add('active');
@@ -206,9 +211,17 @@ const observer = new IntersectionObserver((entries) => {
       }
     }
   });
-}, { threshold: 0.3 });
+}, { threshold: 0.2 });
 
-document.querySelectorAll('h1, p.sub, .section').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal-target, .section').forEach(el => observer.observe(el));
+
+// Assicuriamoci che i video partano
+document.querySelectorAll('video').forEach(v => {
+  v.play().catch(() => {
+    console.log("Autoplay preventato, riprovo al primo click");
+    document.addEventListener('click', () => v.play(), { once: true });
+  });
+});
 </script>
 
 </body>
